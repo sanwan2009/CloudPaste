@@ -10,7 +10,7 @@
 <table>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/8c2b0ac0-75ca-430d-a9fb-c2b94e00bf3c" width="400"/></td>
-    <td><img src="https://github.com/user-attachments/assets/313e54c5-d686-4cff-8985-e18c6d92dda1" width="400"/></td>
+    <td><img src="https://github.com/user-attachments/assets/919e9c41-d209-48cc-a7fd-589b90921ba6" width="400"/></td>
   </tr>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/50fc8f8d-4fcb-4b20-9487-ad9998a4ede7" width="400"/></td>
@@ -37,33 +37,47 @@
   - 支持数学公式渲染 (KaTeX)
 - 编辑器支持双向拉伸调整大小
 - 支持密码保护
-- 自定义过期时间
+- 可选过期时间
 - 自定义分享链接后缀
 - 同步滚动预览
+- 支持自定义链接后缀（仅单文件上传时可用）
 
 ### 📁 文件分享
 - 支持拖拽上传
 - 多文件上传
-- 文件大小限制（25MB，自定义不超R2限制就行）
+- 文件大小限制（98MB，注意worker限制和R2限制）
 - 密码保护
 - 自定义过期时间
 - 实时上传进度显示
-
+- 文件预览功能
+  - 图片预览
+  - 音频预览
+  - 视频预览
+- 上传速度显示
+- 支持取消上传
+- 文件类型图标显示
+- 支持自定义链接后缀（仅单文件上传时可用）
 
 ### 👨‍💻 管理功能
 - 管理员登录
 - 查看所有分享链接
 - 可管理文本/文件上传（防止被盗刷额度）
+  - 开启/关闭文本上传功能
+  - 开启/关闭文件上传功能
 - 分类过滤（文本/文件）
 - 删除分享（带确认提示）
 - 复制分享链接
 - 查看分享统计
+  - 总分享数
+  - 有效分享数
 - 监控存储空间使用情况
   - 已用空间
   - 总容量
   - 使用率百分比
-  - 存储空间预警提示
+  - 存储空间预警提示（70%警告，90%危险）
 - 修改分享密码（支持文本和文件分享）
+  - 可随时添加/移除密码保护
+  - 支持清空密码移除保护
 - 编辑文本分享内容
   - 支持实时 Markdown 预览
   - 可切换 Markdown 开关
@@ -88,6 +102,7 @@
 - 自动过期清理 （每当有请求访问时，检查当前时间，如果是整点（分钟为0），触发清理操作）
 - 访问权限控制
 - CORS 安全配置
+- 上传限制保护
 
 ### 🎨 界面优化
 - 全分辨率自适应布局
@@ -105,8 +120,46 @@
 - 优化的代码块显示
 - 完整的中文标点符号对齐
 - 列表项完美对齐
+- 文件上传进度动画
+- 复制成功提示动画
+- 错误提示动画效果
+- 拖放上传视觉反馈
 
-## 🚀 部署步骤
+## 🚀 部署（自动）
+
+### 1. GitHub Actions 部署(可选)
+
+1. **Fork 本仓库**
+   - 点击右上角的 Fork 按钮
+   - 等待仓库克隆完成
+
+2. **设置 GitHub Secrets**
+   
+   在你的 GitHub 仓库中，转到 Settings -> Secrets and variables -> Actions，添加以下 secrets：
+
+   - `CF_API_TOKEN`: Cloudflare API 令牌
+     * 访问 [Cloudflare Dashboard](https://dash.cloudflare.com/profile/api-tokens)
+     * 创建新的 API 令牌 -选择"编辑 Cloudflare Workers"
+   
+   - `CF_ACCOUNT_ID`: Cloudflare 账户 ID
+     * 在 Cloudflare 仪表板右侧可以找到
+   
+   - `ADMIN_USERNAME`: 管理员用户名
+     * 设置你的管理员账号
+   
+   - `ADMIN_PASSWORD`: 管理员密码
+     * 设置你的管理员密码
+     
+3. **运行工作流**
+
+### 2. 一键部署
+
+默认无密码,需在cloudflare的对于worker下的变量和机密中设置：
+
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ling-drag0n/CloudPaste)
+
+
+## 🚀 部署（手动）
 
 ### 1. 准备工作
 1. 注册 [Cloudflare](https://dash.cloudflare.com) 账号
@@ -201,7 +254,7 @@
 - 每整点自动触发清理
 
 ## ⚠️ 使用限制
-- 文件大小上限：25MB
+- 文件大小上限：98MB
 - 支持的过期时间：1小时、1天、7天、30天，永不过期
 - 并发请求受 Worker 限制
 
@@ -237,3 +290,8 @@ MIT License
 - [Vue 3 文档](https://v3.vuejs.org/)
 - [Marked 文档](https://marked.js.org/)
 
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ling-drag0n/CloudPaste&type=Date)](https://star-history.com/#ling-drag0n/CloudPaste&Date)
